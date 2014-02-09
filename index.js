@@ -24,7 +24,7 @@ module.exports = function cat(streams){
     var stream;
     var data;
     
-    while (!data && (stream = streams[idx])) {
+    while (!data && 'undefined' != typeof (stream = streams[idx])) {
       if ('string' == typeof stream || Buffer.isBuffer(stream)) {
         data = stream;
         idx++;

@@ -41,6 +41,17 @@ describe('cat(string)', function(){
       equal('baz', yield read());
     })(done);
   });
+  
+  it('should ignore empty strings', function(done){
+    co(function*(){
+      var read = cat(twice('foo'), '', 'bar', twice('baz'));
+      equal('foo', yield read());
+      equal('foo', yield read());
+      equal('bar', yield read());
+      equal('baz', yield read());
+      equal('baz', yield read());
+    })(done);
+  });
 });
 
 function twice(str){
