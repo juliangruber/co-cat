@@ -1,5 +1,7 @@
 
 test:
-	@node_modules/.bin/mocha --harmony
+	@node_modules/.bin/mocha \
+		--harmony \
+		--reporter spec
 
 .PHONY: test

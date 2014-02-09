@@ -30,6 +30,18 @@ describe('cat(streams)', function(){
   });
 });
 
+describe('cat(string)', function(){
+  it('should concatenate', function(done){
+    co(function*(){
+      var read = cat(twice('foo'), 'bar', twice('baz'));
+      equal('foo', yield read());
+      equal('foo', yield read());
+      equal('bar', yield read());
+      equal('baz', yield read());
+      equal('baz', yield read());
+    })(done);
+  });
+});
 
 function twice(str){
   var i = 0;
