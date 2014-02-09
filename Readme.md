@@ -3,6 +3,8 @@
 
   Concatenate [co generator streams](https://github.com/juliangruber/co-stream).
 
+  [![build status](https://secure.travis-ci.org/juliangruber/co-cat.png)](http://travis-ci.org/juliangruber/co-cat)
+
 ## Example
 
 ```js
