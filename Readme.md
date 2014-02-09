@@ -8,16 +8,16 @@
 ## Example
 
 ```js
-var cat = require('./');
+var cat = require('co-cat');
 var co = require('co');
 
 co(function*(){
-  var read = cat(repeater('foo'), repeater('bar'), repeater('baz'));
+  var read = cat(twice('foo'), twice('bar'), twice('baz'));
   var data;
   while (data = yield read()) console.log(data);
 })();
 
-function repeater(str){
+function twice(str){
   var i = 0;
   return function*(end){
     if (end) return;
