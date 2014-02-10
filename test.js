@@ -36,6 +36,36 @@ describe('cat(stream, ..)', function(){
       equal(ended, 3);
     })(done);
   });
+  it('should catch errors', function(done){
+    co(function*(){
+      var ended = 0;
+      
+      function twice(str){
+        var i = 0;
+        return function*(end){
+          if (end) {
+            ended++;
+            return;
+          }
+          throw new Error('oops');
+        }
+      }
+      
+      var read = cat(twice('foo'), twice('bar'), twice('baz'));
+      var data;
+      var err;
+      
+      try {
+        data = yield read();
+      } catch (_err) {
+        err = _err;
+      }
+      
+      assert(!data);
+      assert(err);
+      equal(ended, 3);
+    })(done);
+  });
 });
 
 describe('cat(streams)', function(){
