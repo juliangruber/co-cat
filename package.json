@@ -1,6 +1,6 @@
 {
   "name": "co-cat",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Concatenate co generator streams",
   "repository": "juliangruber/co-cat",
   "license": "MIT",
