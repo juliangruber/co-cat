@@ -19,7 +19,7 @@ module.exports = function cat(streams){
   var idx = 0;
   
   return function*(end){
-    if (end) return yield end();
+    if (end) return yield endPending();
     
     var stream;
     var data;
@@ -32,7 +32,7 @@ module.exports = function cat(streams){
         try {
           data = yield stream();
         } catch (err) {
-          yield end();
+          yield endPending();
           throw err;
         }
         if (!data) idx++;
@@ -46,7 +46,7 @@ module.exports = function cat(streams){
    * End all pending streams.
    */
   
-  function* end(){
+  function* endPending(){
     yield streams
     .slice(idx)
     .filter(function(stream){
