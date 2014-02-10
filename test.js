@@ -1,6 +1,7 @@
 var cat = require('./');
 var co = require('co');
-var equal = require('assert').equal;
+var assert = require('assert');
+var equal = assert.equal;
 
 describe('cat(stream, ..)', function(){
   it('should concatenate', function(done){
@@ -12,6 +13,27 @@ describe('cat(stream, ..)', function(){
       equal('bar', yield read());
       equal('baz', yield read());
       equal('baz', yield read());
+    })(done);
+  });
+  it('should end', function(done){
+    co(function*(){
+      var ended = 0;
+      
+      function twice(str){
+        var i = 0;
+        return function*(end){
+          if (end) {
+            ended++;
+            return;
+          }
+          if (++i <3) return str;
+        }
+      }
+      
+      var read = cat(twice('foo'), twice('bar'), twice('baz'));
+      equal('foo', yield read());
+      assert(!(yield read(true)));
+      equal(ended, 3);
     })(done);
   });
 });
